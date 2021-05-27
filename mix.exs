@@ -1,9 +1,9 @@
-defmodule CrapStore.MixProject do
+defmodule WatStore.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :crap_store,
+      app: :wat_store,
       version: "0.1.0",
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -19,7 +19,7 @@ defmodule CrapStore.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {CrapStore.Application, []},
+      mod: {WatStore.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
@@ -46,7 +46,11 @@ defmodule CrapStore.MixProject do
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:absinthe_plug, "~> 1.5"},
+      {:dataloader, "~> 1.0.8"},
+      {:bureaucrat, "~> 0.2.6", only: :test},
+      {:faker, "~> 0.14", only: :test}
     ]
   end
 

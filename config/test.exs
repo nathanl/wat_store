@@ -5,16 +5,16 @@ use Mix.Config
 # The MIX_TEST_PARTITION environment variable can be used
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
-config :crap_store, CrapStore.Repo,
+config :wat_store, WatStore.Repo,
   username: "postgres",
   password: "postgres",
-  database: "crap_store_test#{System.get_env("MIX_TEST_PARTITION")}",
+  database: "wat_store_test#{System.get_env("MIX_TEST_PARTITION")}",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :crap_store, CrapStoreWeb.Endpoint,
+config :wat_store, WatStoreWeb.Endpoint,
   http: [port: 4002],
   server: false
 
