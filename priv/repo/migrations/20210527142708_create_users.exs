@@ -1,4 +1,4 @@
-defmodule CrapStore.Repo.Migrations.CreateUsers do
+defmodule WatStore.Repo.Migrations.CreateUsers do
   use Ecto.Migration
 
   def change do

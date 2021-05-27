@@ -1,10 +1,10 @@
 use Mix.Config
 
 # Configure your database
-config :crap_store, CrapStore.Repo,
+config :wat_store, WatStore.Repo,
   username: "postgres",
   password: "postgres",
-  database: "crap_store_dev",
+  database: "wat_store_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -15,7 +15,7 @@ config :crap_store, CrapStore.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
-config :crap_store, CrapStoreWeb.Endpoint,
+config :wat_store, WatStoreWeb.Endpoint,
   http: [port: 4000],
   debug_errors: false,
   code_reloader: true,
@@ -55,13 +55,13 @@ config :crap_store, CrapStoreWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :crap_store, CrapStoreWeb.Endpoint,
+config :wat_store, WatStoreWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/crap_store_web/(live|views)/.*(ex)$",
-      ~r"lib/crap_store_web/templates/.*(eex)$"
+      ~r"lib/wat_store_web/(live|views)/.*(ex)$",
+      ~r"lib/wat_store_web/templates/.*(eex)$"
     ]
   ]
 

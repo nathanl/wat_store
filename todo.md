@@ -1,7 +1,7 @@
 schema
-  - users (name, email, admin or no, api token)
-  - products (title, price_in_cents)
-  - orders (user id, product id, quantity, total, shipping status enum)
+  - [x] users (name, email, admin or no, api token)
+  - [ ] products (title, price_in_cents)
+  - [ ] orders (user id, product id, quantity, total, shipping status enum)
 
 features:
   - queries for all for all of this

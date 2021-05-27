@@ -1,4 +1,4 @@
-# CrapStore
+# WatStore
 
 To start your Phoenix server:
 

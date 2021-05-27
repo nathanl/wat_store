@@ -1,4 +1,4 @@
-defmodule CrapStore.DataCase do
+defmodule WatStore.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -10,7 +10,7 @@ defmodule CrapStore.DataCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use CrapStore.DataCase, async: true`, although
+  by setting `use WatStore.DataCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -18,20 +18,20 @@ defmodule CrapStore.DataCase do
 
   using do
     quote do
-      alias CrapStore.Repo
+      alias WatStore.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import CrapStore.DataCase
+      import WatStore.DataCase
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(CrapStore.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(WatStore.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(CrapStore.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(WatStore.Repo, {:shared, self()})
     end
 
     :ok

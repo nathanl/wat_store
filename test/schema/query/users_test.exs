@@ -1,6 +1,6 @@
-defmodule CrapStoreWeb.Schema.Query.UsersTest do
-  use CrapStoreWeb.ConnCase, async: true
-  alias CrapStore.UserFactory
+defmodule WatStoreWeb.Schema.Query.UsersTest do
+  use WatStoreWeb.ConnCase, async: true
+  alias WatStore.UserFactory
 
   test "lists users' names", %{conn: conn} do
     UserFactory.create(%{name: "Alice"})

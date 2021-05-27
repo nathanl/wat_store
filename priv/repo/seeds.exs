@@ -5,7 +5,7 @@
 # Inside the script, you can read and write to any of your
 # repositories directly:
 #
-#     CrapStore.Repo.insert!(%CrapStore.SomeSchema{})
+#     WatStore.Repo.insert!(%WatStore.SomeSchema{})
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
@@ -37,7 +37,7 @@
   }
 ]
 |> Enum.each(fn user_map ->
-  %CrapStore.User{}
+  %WatStore.User{}
   |> Map.merge(user_map)
-  |> CrapStore.Repo.insert!()
+  |> WatStore.Repo.insert!()
 end)

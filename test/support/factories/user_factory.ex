@@ -1,5 +1,5 @@
-defmodule CrapStore.UserFactory do
-  alias CrapStore.Users
+defmodule WatStore.UserFactory do
+  alias WatStore.Users
 
   def create(attrs) do
     {:ok, user} =

@@ -7,15 +7,15 @@
 # General application configuration
 use Mix.Config
 
-config :crap_store,
-  ecto_repos: [CrapStore.Repo]
+config :wat_store,
+  ecto_repos: [WatStore.Repo]
 
 # Configures the endpoint
-config :crap_store, CrapStoreWeb.Endpoint,
+config :wat_store, WatStoreWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "UOr+X8u1JvCoC13EZ1sHN16gL+XI33uEhyKGbiKIjyDUD3jtvyYZ1FVx4T5gGjR+",
-  render_errors: [view: CrapStoreWeb.ErrorView, accepts: ~w(json), layout: false],
-  pubsub_server: CrapStore.PubSub,
+  render_errors: [view: WatStoreWeb.ErrorView, accepts: ~w(json), layout: false],
+  pubsub_server: WatStore.PubSub,
   live_view: [signing_salt: "YDchTdB3"]
 
 # Configures Elixir's Logger
