@@ -12,6 +12,7 @@ defmodule WatStoreWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug WatStoreWeb.TokenAuth
   end
 
   scope "/", WatStoreWeb do

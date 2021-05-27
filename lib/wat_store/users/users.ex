@@ -5,6 +5,12 @@ defmodule WatStore.Users do
   """
   alias WatStore.{Repo, User, Users.Queries}
 
+  def get_by_token(token) do
+    User
+    |> Queries.by_token(token)
+    |> Repo.one()
+  end
+
   def by_criteria(criteria) do
     User
     |> Queries.by_criteria(criteria)

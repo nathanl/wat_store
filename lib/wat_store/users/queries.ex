@@ -19,6 +19,14 @@ defmodule WatStore.Users.Queries do
 
   def by_criteria(query, [] = _criteria), do: query
 
+  def by_token(query, token) do
+    # not bothering to encrypt this
+    from(
+      users in query,
+      where: users.api_token == ^token
+    )
+  end
+
   defp name_like(query, val) do
     from(
       users in query,
