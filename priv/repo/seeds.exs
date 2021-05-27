@@ -77,6 +77,10 @@ end)
     price_in_cents: 300_00,
   },
   %{
+    name: "Taco Cannon",
+    price_in_cents: 100_00,
+  },
+  %{
     name: "Meeting Simulator",
     price_in_cents: 5_999_99
   }
