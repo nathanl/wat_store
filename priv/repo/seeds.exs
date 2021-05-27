@@ -41,3 +41,48 @@
   |> Map.merge(user_map)
   |> WatStore.Repo.insert!()
 end)
+
+
+[
+  %{
+    name: "Pickle Juicer",
+    price_in_cents: 29_95
+  },
+  %{
+    name: "Toast Mittens",
+    price_in_cents: 15_00
+  },
+  %{
+    name: "Horse Paint",
+    price_in_cents: 40_00
+  },
+  %{
+    name: "Smart Spoon",
+    price_in_cents: 89_99
+  },
+  %{
+    name: "Bird Collar",
+    price_in_cents: 12_25
+  },
+  %{
+    name: "Toilet Bling",
+    price_in_cents: 599_99
+  },
+  %{
+    name: "Cat Softener",
+    price_in_cents: 6_85
+  },
+  %{
+    name: "Autogoat",
+    price_in_cents: 300_00,
+  },
+  %{
+    name: "Meeting Simulator",
+    price_in_cents: 5_999_99
+  }
+]
+|> Enum.each(fn product_map ->
+  %WatStore.Product{}
+  |> Map.merge(product_map)
+  |> WatStore.Repo.insert!()
+end)
