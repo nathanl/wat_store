@@ -3,7 +3,7 @@ defmodule WatStoreWeb.GraphQL.Schema do
   The GraphQL schema
   """
   use Absinthe.Schema
-  alias WatStore.{Products, Users}
+  alias WatStore.{Orders, Products, Users}
 
   query do
     field :users, list_of(:user) do
@@ -22,6 +22,15 @@ defmodule WatStoreWeb.GraphQL.Schema do
 
       resolve(fn _parent_field, field_args, _context ->
         {:ok, Products.by_criteria(field_args)}
+      end)
+    end
+
+    field :orders, list_of(:order) do
+      arg(:total_in_cents_lte, :integer)
+      arg(:total_in_cents_gte, :integer)
+
+      resolve(fn _parent_field, field_args, _context ->
+        {:ok, Orders.by_criteria(field_args)}
       end)
     end
   end
@@ -43,5 +52,16 @@ defmodule WatStoreWeb.GraphQL.Schema do
 
     @desc "The product's price in cents"
     field :price_in_cents, :integer
+  end
+
+  object :order do
+    @desc "The orders's total in cents"
+    field :total_in_cents, :integer
+
+    @desc "The orders's product quantity"
+    field :quantity, :integer
+
+    @desc "The orders's shipping status"
+    field :shipping_status, :string
   end
 end
