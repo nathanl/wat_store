@@ -2,7 +2,7 @@ defmodule WatStore.Products.Queries do
   import Ecto.Query
 
   def by_criteria(query, criteria) when is_map(criteria) do
-     by_criteria(query, Enum.to_list(criteria))
+    by_criteria(query, Enum.to_list(criteria))
   end
 
   def by_criteria(query, [{:name_like, val} | rest]) do

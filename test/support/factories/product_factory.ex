@@ -6,6 +6,7 @@ defmodule WatStore.ProductFactory do
       default_attrs()
       |> Map.merge(attrs)
       |> Products.create()
+
     user
   end
 

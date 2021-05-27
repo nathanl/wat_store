@@ -6,6 +6,7 @@ defmodule WatStore.OrderFactory do
       default_attrs()
       |> Map.merge(attrs)
       |> Orders.create()
+
     user
   end
 
@@ -14,7 +15,7 @@ defmodule WatStore.OrderFactory do
       quantity: :random.uniform(2),
       # Not bothering to make this add up - please assume unreasonable
       # discounts and surcharges have been applied :)
-      total_in_cents: :random.uniform(5),
+      total_in_cents: :random.uniform(5)
       # also not bothering to build fake users / products here;
       # you have to supply those
     }

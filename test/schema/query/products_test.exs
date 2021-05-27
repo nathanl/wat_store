@@ -47,7 +47,7 @@ defmodule WatStoreWeb.Schema.Query.ProductsTest do
              "data" => %{
                "products" => [
                  %{"name" => "Toe Hat"},
-                 %{"name" => "Hat Remover"},
+                 %{"name" => "Hat Remover"}
                ]
              }
            }
@@ -66,7 +66,8 @@ defmodule WatStoreWeb.Schema.Query.ProductsTest do
     }
     """
 
-    response = get(conn, "/graphql", query: query, variables: Jason.encode!(%{price_in_cents_gte: 500}))
+    response =
+      get(conn, "/graphql", query: query, variables: Jason.encode!(%{price_in_cents_gte: 500}))
 
     assert json_response(response, 200) == %{
              "data" => %{

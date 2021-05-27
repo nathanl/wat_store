@@ -6,6 +6,7 @@ defmodule WatStore.UserFactory do
       default_attrs()
       |> Map.merge(attrs)
       |> Users.create()
+
     user
   end
 
