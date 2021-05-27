@@ -35,6 +35,20 @@ defmodule WatStoreWeb.GraphQL.Schema do
     end
   end
 
+  mutation do
+    @desc "Create an order"
+    field :create_order, type: :order do
+      arg(:product_id, non_null(:integer))
+      arg(:quantity, non_null(:integer))
+      # Pay what you want! :`¯\_(ツ)_/¯`:
+      arg(:total_in_cents, non_null(:integer))
+
+      resolve(fn _parent_field, field_args, %{context: %{current_user: %{id: user_id}}} ->
+        WatStore.Orders.create(Map.put(field_args, :user_id, user_id))
+      end)
+    end
+  end
+
   object :user do
     @desc "The user's name"
     field :name, :string

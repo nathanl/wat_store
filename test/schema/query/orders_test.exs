@@ -36,4 +36,39 @@ defmodule WatStoreWeb.Schema.Query.OrdersTest do
              }
            }
   end
+
+  test "can create an order", %{conn: conn} do
+    user = UserFactory.create(%{name: "Alice", api_token: "hey"})
+    product = ProductFactory.create(%{name: "Antiantivenom"})
+
+    query = """
+    mutation CreateOrder($product_id: integer!, quantity: integer!, totalInCents: integer!) {
+      createOrder(productId: $product_id, quantity: $quantity, totalInCents: $totalInCents) {
+        totalInCents
+      }
+    }
+    """
+    variables = %{
+      product_id: product.id
+    } |> Jason.encode!(
+
+
+    response = get(conn, "/graphql", query: query)
+
+    assert json_response(response, 200) == %{
+             "data" => %{
+               "orders" => [
+                 %{
+                   "total_in_cents" => 1000,
+                   "shipping_status" => "pending"
+                 },
+                 %{
+                   "total_in_cents" => 2000,
+                   "shipping_status" => "pending"
+                 }
+               ]
+             }
+           }
+  end
+
 end
