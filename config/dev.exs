@@ -17,7 +17,7 @@ config :crap_store, CrapStore.Repo,
 # with webpack to recompile .js and .css sources.
 config :crap_store, CrapStoreWeb.Endpoint,
   http: [port: 4000],
-  debug_errors: true,
+  debug_errors: false,
   code_reloader: true,
   check_origin: false,
   watchers: [

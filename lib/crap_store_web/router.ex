@@ -40,4 +40,22 @@ defmodule CrapStoreWeb.Router do
       live_dashboard "/dashboard", metrics: CrapStoreWeb.Telemetry
     end
   end
+
+  scope "/" do
+    pipe_through [:api]
+
+    forward "/graphql", Absinthe.Plug, schema: CrapStoreWeb.GraphQL.Schema
+  end
+
+  scope "/" do
+    # no auth needed to load this page, but actual requests
+    # to the 'default_url' will need a token
+    forward "/graphiql", Absinthe.Plug.GraphiQL,
+      # BogusSchema can't actually do anything
+      schema: CrapStoreWeb.GraphQL.BogusSchema,
+      # advanced interface allows setting a header like
+      # `Authorization: Bearer [api token]`
+      interface: :advanced,
+      default_url: "/graphql"
+  end
 end

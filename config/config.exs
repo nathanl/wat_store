@@ -14,7 +14,7 @@ config :crap_store,
 config :crap_store, CrapStoreWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "UOr+X8u1JvCoC13EZ1sHN16gL+XI33uEhyKGbiKIjyDUD3jtvyYZ1FVx4T5gGjR+",
-  render_errors: [view: CrapStoreWeb.ErrorView, accepts: ~w(html json), layout: false],
+  render_errors: [view: CrapStoreWeb.ErrorView, accepts: ~w(json), layout: false],
   pubsub_server: CrapStore.PubSub,
   live_view: [signing_salt: "YDchTdB3"]
 
