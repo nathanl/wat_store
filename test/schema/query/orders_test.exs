@@ -19,7 +19,10 @@ defmodule WatStoreWeb.Schema.Query.OrdersTest do
     }
     """
 
-    response = get(conn, "/graphql", query: query)
+    response =
+      conn
+      |> with_api_token_for(user)
+      |> get("/graphql", query: query)
 
     assert json_response(response, 200) == %{
              "data" => %{
@@ -42,33 +45,34 @@ defmodule WatStoreWeb.Schema.Query.OrdersTest do
     product = ProductFactory.create(%{name: "Antiantivenom"})
 
     query = """
-    mutation CreateOrder($product_id: integer!, quantity: integer!, totalInCents: integer!) {
+    mutation CreateOrder($product_id: integer!, $quantity: integer!, $totalInCents: integer!) {
       createOrder(productId: $product_id, quantity: $quantity, totalInCents: $totalInCents) {
         totalInCents
+        shippingStatus
       }
     }
     """
-    variables = %{
-      product_id: product.id
-    } |> Jason.encode!(
 
+    variables =
+      %{
+        product_id: product.id,
+        quantity: 2,
+        totalInCents: 50_00
+      }
+      |> Jason.encode!()
 
-    response = get(conn, "/graphql", query: query)
+    response =
+      conn
+      |> with_api_token_for(user)
+      |> post("/graphql", query: query, variables: variables)
 
     assert json_response(response, 200) == %{
              "data" => %{
-               "orders" => [
-                 %{
-                   "total_in_cents" => 1000,
-                   "shipping_status" => "pending"
-                 },
-                 %{
-                   "total_in_cents" => 2000,
-                   "shipping_status" => "pending"
-                 }
-               ]
+               "createOrder" => %{
+                 "shippingStatus" => "pending",
+                 "totalInCents" => 50_00
+               }
              }
            }
   end
-
 end

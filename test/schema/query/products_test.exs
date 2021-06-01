@@ -1,11 +1,12 @@
 defmodule WatStoreWeb.Schema.Query.ProductsTest do
   use WatStoreWeb.ConnCase, async: true
-  alias WatStore.ProductFactory
+  alias WatStore.{ProductFactory, UserFactory}
 
   test "lists Products' names", %{conn: conn} do
     ProductFactory.create(%{name: "Toe Hat"})
     ProductFactory.create(%{name: "Hat Remover"})
     ProductFactory.create(%{name: "Window Bell"})
+    user = UserFactory.create(%{})
 
     query = """
     query {
@@ -15,7 +16,10 @@ defmodule WatStoreWeb.Schema.Query.ProductsTest do
     }
     """
 
-    response = get(conn, "/graphql", query: query)
+    response =
+      conn
+      |> with_api_token_for(user)
+      |> get("/graphql", query: query)
 
     assert json_response(response, 200) == %{
              "data" => %{
@@ -32,6 +36,7 @@ defmodule WatStoreWeb.Schema.Query.ProductsTest do
     ProductFactory.create(%{name: "Toe Hat"})
     ProductFactory.create(%{name: "Hat Remover"})
     ProductFactory.create(%{name: "Window Bell"})
+    user = UserFactory.create(%{})
 
     query = """
     query($name_like: string!) {
@@ -41,7 +46,10 @@ defmodule WatStoreWeb.Schema.Query.ProductsTest do
     }
     """
 
-    response = get(conn, "/graphql", query: query, variables: %{name_like: "Hat"})
+    response =
+      conn
+      |> with_api_token_for(user)
+      |> get("/graphql", query: query, variables: %{name_like: "Hat"})
 
     assert json_response(response, 200) == %{
              "data" => %{
@@ -57,6 +65,7 @@ defmodule WatStoreWeb.Schema.Query.ProductsTest do
     ProductFactory.create(%{price_in_cents: 10})
     ProductFactory.create(%{price_in_cents: 10_00})
     ProductFactory.create(%{price_in_cents: 100_00})
+    user = UserFactory.create(%{})
 
     query = """
     query($price_in_cents_gte: integer!) {
@@ -67,7 +76,9 @@ defmodule WatStoreWeb.Schema.Query.ProductsTest do
     """
 
     response =
-      get(conn, "/graphql", query: query, variables: Jason.encode!(%{price_in_cents_gte: 500}))
+      conn
+      |> with_api_token_for(user)
+      |> get("/graphql", query: query, variables: Jason.encode!(%{price_in_cents_gte: 500}))
 
     assert json_response(response, 200) == %{
              "data" => %{

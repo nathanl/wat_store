@@ -3,7 +3,7 @@ defmodule WatStoreWeb.Schema.Query.UsersTest do
   alias WatStore.UserFactory
 
   test "lists users' names", %{conn: conn} do
-    UserFactory.create(%{name: "Alice"})
+    user = UserFactory.create(%{name: "Alice"})
     UserFactory.create(%{name: "Bob"})
     UserFactory.create(%{name: "Eve"})
 
@@ -15,7 +15,10 @@ defmodule WatStoreWeb.Schema.Query.UsersTest do
     }
     """
 
-    response = get(conn, "/graphql", query: query)
+    response =
+      conn
+      |> with_api_token_for(user)
+      |> get("/graphql", query: query)
 
     assert json_response(response, 200) == %{
              "data" => %{
@@ -29,7 +32,7 @@ defmodule WatStoreWeb.Schema.Query.UsersTest do
   end
 
   test "can filter by admin status", %{conn: conn} do
-    UserFactory.create(%{name: "Alice", admin: true})
+    user = UserFactory.create(%{name: "Alice", admin: true})
     UserFactory.create(%{name: "Bob", admin: false})
     UserFactory.create(%{name: "Eve", admin: true})
 
@@ -41,7 +44,10 @@ defmodule WatStoreWeb.Schema.Query.UsersTest do
     }
     """
 
-    response = get(conn, "/graphql", query: query, variables: Jason.encode!(%{"admin" => true}))
+    response =
+      conn
+      |> with_api_token_for(user)
+      |> get("/graphql", query: query, variables: Jason.encode!(%{"admin" => true}))
 
     assert json_response(response, 200) == %{
              "data" => %{
@@ -54,7 +60,7 @@ defmodule WatStoreWeb.Schema.Query.UsersTest do
   end
 
   test "can filter by name_like", %{conn: conn} do
-    UserFactory.create(%{name: "Nathan"})
+    user = UserFactory.create(%{name: "Nathan"})
     UserFactory.create(%{name: "Jonathan"})
     UserFactory.create(%{name: "Josh"})
 
@@ -66,7 +72,10 @@ defmodule WatStoreWeb.Schema.Query.UsersTest do
     }
     """
 
-    response = get(conn, "/graphql", query: query, variables: %{name_like: "jo"})
+    response =
+      conn
+      |> with_api_token_for(user)
+      |> get("/graphql", query: query, variables: %{name_like: "jo"})
 
     assert json_response(response, 200) == %{
              "data" => %{
@@ -77,7 +86,10 @@ defmodule WatStoreWeb.Schema.Query.UsersTest do
              }
            }
 
-    response = get(conn, "/graphql", query: query, variables: %{name_like: "nat"})
+    response =
+      conn
+      |> with_api_token_for(user)
+      |> get("/graphql", query: query, variables: %{name_like: "nat"})
 
     assert json_response(response, 200) == %{
              "data" => %{

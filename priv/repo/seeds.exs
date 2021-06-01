@@ -80,6 +80,14 @@ end)
     price_in_cents: 100_00
   },
   %{
+    name: "Mustache Repellent",
+    price_in_cents: 35_00
+  },
+  %{
+    name: "Brawn Filters",
+    price_in_cents: 12_75
+  },
+  %{
     name: "Meeting Simulator",
     price_in_cents: 5_999_99
   }

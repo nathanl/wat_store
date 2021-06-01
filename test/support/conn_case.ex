@@ -31,6 +31,15 @@ defmodule WatStoreWeb.ConnCase do
     end
   end
 
+  @doc "Adds to the request an api token header for the given user"
+  def with_api_token_for(conn, %{api_token: token} = _user) do
+    Plug.Conn.put_req_header(
+      conn,
+      "authorization",
+      "Bearer #{token}"
+    )
+  end
+
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(WatStore.Repo)
 
