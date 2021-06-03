@@ -12,7 +12,13 @@ defmodule WatStoreWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug WatStoreWeb.TokenAuth
+    plug WatStoreWeb.Plugs.TokenAuth
+    plug WatStoreWeb.Plugs.RequireAuth
+  end
+
+  pipeline :graphiql do
+    plug :accepts, ["json"]
+    plug WatStoreWeb.Plugs.TokenAuth
   end
 
   scope "/", WatStoreWeb do
@@ -49,11 +55,14 @@ defmodule WatStoreWeb.Router do
   end
 
   scope "/" do
-    # no auth needed to load this page, but actual requests
-    # to the 'default_url' will need a token
+    pipe_through [:graphiql]
+    # no auth required to load this page, but actual requests to the
+    # 'default_url' will need a token
     forward "/graphiql", Absinthe.Plug.GraphiQL,
       # BogusSchema can't actually do anything
       schema: WatStoreWeb.GraphQL.BogusSchema,
+      socket: WatStoreWeb.UserSocket,
+      socket_url: "ws://localhost:4000/socket",
       # advanced interface allows setting a header like
       # `Authorization: Bearer [api token]`
       interface: :advanced,

@@ -73,6 +73,26 @@ defmodule WatStoreWeb.GraphQL.Schema do
     end
   end
 
+  subscription do
+    field :order_shipping_status_updated, :order do
+      arg(:order_id, non_null(:integer))
+
+      config(fn args, _ ->
+        {:ok, topic: args.order_id}
+      end)
+
+      trigger(:set_order_shipping_status,
+        topic: fn order ->
+          order.id
+        end
+      )
+
+      resolve(fn order, _, _ ->
+        {:ok, order}
+      end)
+    end
+  end
+
   object :user do
     @desc "The user's name"
     field :name, :string
@@ -93,6 +113,15 @@ defmodule WatStoreWeb.GraphQL.Schema do
   end
 
   object :order do
+    @desc "The order's id"
+    field :id, :integer
+
+    @desc "The order's user id"
+    field :user_id, :integer
+
+    @desc "The order's product id"
+    field :product_id, :integer
+
     @desc "The orders's total in cents"
     field :total_in_cents, :integer
 

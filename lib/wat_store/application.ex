@@ -14,7 +14,8 @@ defmodule WatStore.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: WatStore.PubSub},
       # Start the Endpoint (http/https)
-      WatStoreWeb.Endpoint
+      WatStoreWeb.Endpoint,
+      {Absinthe.Subscription, WatStoreWeb.Endpoint}
       # Start a worker by calling: WatStore.Worker.start_link(arg)
       # {WatStore.Worker, arg}
     ]

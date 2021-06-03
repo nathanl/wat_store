@@ -47,7 +47,7 @@ defmodule WatStore.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:absinthe_plug, "~> 1.5"},
+      {:absinthe_phoenix, "~> 2.0"},
       {:dataloader, "~> 1.0.8"},
       {:bureaucrat, "~> 0.2.6", only: :test},
       {:faker, "~> 0.14", only: :test}
